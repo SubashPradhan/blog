@@ -1,0 +1,12 @@
+.container{
+  margin: 0 auto; 
+  margin-top: 20px;  
+}
+
+h1 a, h3 a{
+  font-family: "Comic Sans MS", cursive, sans-serif	;
+}
+
+h1{
+  text-align: center;
+}
