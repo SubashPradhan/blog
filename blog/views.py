@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Post
 from .forms import PostForm
-
 
 def post_list(request):
     posts = Post.objects.filter(
@@ -39,3 +40,16 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'post_edit.html', {'form': form})
+
+def register(request):
+    if request.method == 'POST':
+        form =UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect('/')
+    else:      
+        form = UserCreationForm()
+        return render(request, 'registration/register.html', {'form' : form}) 
+    
+    
+     
