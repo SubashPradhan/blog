@@ -16,6 +16,7 @@ h1{
   font-weight: 600;
 }
 
-.top-menu{
-  margin: 25px;
+.login-button{
+  float: right;
 }
+

@@ -9,4 +9,5 @@ urlpatterns =[
   path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
   path('register/', views.register, name='register'),
   path('accounts/', include('django.contrib.auth.urls')),
+  path('profile/', views.profile, name='profile'),
 ]

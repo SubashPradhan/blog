@@ -14,24 +14,30 @@
 
 <body>
   <div class="container">
-    <a href="{% url 'login' %}">
-      <span>Log In</span>
-    </a>
-    {% if user.is_authenticated %}
-    <a href="{% url 'post_new' %}" class="top-menu">
-      <span class="glyphicon glyphicon-plus"></span>
-    </a>
-    <a href="{% url 'logout' %}">
-        <span>Dear {{user.username}} !! Logout</span>
+    <div>
+      {% if user.is_authenticated %}
+      <a href="{% url 'profile' %}">
+        <span>{{user.username}}</span>
       </a>
-    {% endif %}
-    <h1><a href="/">Home Blog</a></h1>
-  </div>
+      <a href="{% url 'logout' %}">
+        <span class="login-button">Logout</span>
+      </a>
+      {% else %}
+      <a href="{% url 'login' %}">
+        <span class="login-button">Log In</span>
+      </a>
+      <a href="{% url 'register' %}">
+        <span class="login-button">Register</span>
+      </a>
+      {% endif %}
+      <h1><a href="/">Home Blog</a></h1>
+    </div>
 
-  <div class="container row">
-    <div class="col-md-10">
-      {% block content %}
-      {% endblock %}
+    <div class="row">
+      <div class="col-md-10">
+        {% block content %}
+        {% endblock %}
+      </div>
     </div>
   </div>
 </body>
