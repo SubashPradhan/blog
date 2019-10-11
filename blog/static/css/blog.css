@@ -1,6 +1,6 @@
 .container{
   margin: 0 auto; 
-  margin-top: 20px;  
+  margin-top: 20px; 
 }
 
 h1 a, h3 a{
@@ -9,6 +9,8 @@ h1 a, h3 a{
 
 h1{
   text-align: center;
+  color: brown;
+  text-transform: uppercase;
 }
 
 .date{
@@ -18,5 +20,30 @@ h1{
 
 .login-button{
   float: right;
+  margin: 10px;
 }
 
+.form-container{
+  text-align: center;
+}
+
+.form{
+  font-size: 20px;
+}
+
+.submit-button{
+  font-size: 20px;
+  border: 2px solid green;
+  border-radius: 20px; 
+}
+
+.welcome-text{
+  font-size: 25px;
+  color: green;
+  text-transform: uppercase ;
+  font-family: "Comic Sans MS", cursive, sans-serif	;
+}
+
+.fields{
+  widows: 800px;
+}

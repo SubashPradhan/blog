@@ -14,13 +14,15 @@
 
 <body>
   <div class="container">
-    <span class="login-button">Welcome {{user}}</span>
-    <a href="/">Home page</a>
+    <span class="welcome-text">Welcome {{user}}</span>
+    <a href="/">
+      <span class="login-button">Home page</span>
+    </a>
     <a href="{% url 'post_new' %}" class="top-menu">
-      <span class="glyphicon glyphicon-plus"></span>
+      <span class="glyphicon glyphicon-plus login-button">Add</span>
     </a>
     <h1>{{user}} blogs</h1>
-    {% if mypost|length > 1 %}
+    {% if mypost|length >= 1 %}
     {% for post in mypost %}
     <div>
       <div class="date">
