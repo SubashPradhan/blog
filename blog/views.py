@@ -12,8 +12,16 @@ def post_list(request):
     posts = Post.objects.filter(
         published_date__lte=timezone.now()).order_by('published_date')
     comments = Comment.objects.all()
-    return render(request, 'post_list.html', {'posts': posts, 'comments': comments})
-
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.save()
+            return redirect('/')
+    else:
+      form = CommentForm()
+    return render(request, 'post_list.html', {'posts': posts, 'comments': comments, 'form' : form})
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)

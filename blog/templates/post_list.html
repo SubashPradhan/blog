@@ -13,6 +13,7 @@
 <span>Comments:</span>
 {% for comment in comments %}
 <div class="comment">
+  <span>{{comment.author}}:</span>
   <span>{{comment}}</span>
 </div>
 {%  endfor %}
