@@ -4,16 +4,21 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib.auth.models import User
 from .models import Post
-from .forms import PostForm
+from .models import Comment
+from .forms import PostForm, CommentForm
+
 
 def post_list(request):
     posts = Post.objects.filter(
         published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'post_list.html', {'posts': posts})
+    comments = Comment.objects.all()
+    return render(request, 'post_list.html', {'posts': posts, 'comments': comments})
+
 
 def post_detail(request, pk):
-        post = get_object_or_404(Post, pk=pk)
-        return render(request, 'post_detail.html', {'post' : post})
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'post_detail.html', {'post': post})
+
 
 def post_new(request):
     if request.method == "POST":
@@ -27,6 +32,7 @@ def post_new(request):
     else:
         form = PostForm()
     return render(request, 'post_edit.html', {'form': form})
+
 
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -42,19 +48,24 @@ def post_edit(request, pk):
         form = PostForm(instance=post)
     return render(request, 'post_edit.html', {'form': form})
 
+
 def register(request):
     if request.method == 'POST':
-        form =UserCreationForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
             return redirect('/')
-    else:      
+    else:
         form = UserCreationForm()
-        return render(request, 'registration/register.html', {'form' : form}) 
-    
-@login_required    
+        return render(request, 'registration/register.html', {'form': form})
+
+
+@login_required
 def profile(request):
     user = request.user
     mypost = Post.objects.filter(author=user).order_by('published_date')
-    return render(request, 'profile.html', {'mypost' : mypost} )    
-     
+    return render(request, 'profile.html', {'mypost': mypost})
+
+
+def post_comment(request):
+    form = CommentForm()
+    return render(request, 'post_list.html', {'form' : form})

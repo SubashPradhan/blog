@@ -1,17 +1,31 @@
 {% extends 'base.html' %}
-
 {% block content %}
-  {% for post in posts %}
-    <div>
-      <div class="date">
-        <p>published: {{ post.published_date }}</p>
-      </div>
-      <h3><a href="{% url 'post_detail' pk=post.pk%}">{{ post.title }}</a></h2>
-        <p>{{ post.text|linebreaksbr }}</p>
-    </div>
-    <div class="comment">
-      <input type='comment' placeholder="enter your comment">
-      <input type='submit'> 
-    </div>
-  {% endfor %}
+
+{% for post in posts %}
+<div>
+  <div class="date">
+    <p>published: {{ post.published_date }}</p>
+  </div>
+  <h3><a href="{% url 'post_detail' pk=post.pk%}">{{ post.title }}</a></h2>
+    <p>{{ post.text|linebreaksbr }}</p>
+</div>
+
+<span>Comments:</span>
+{% for comment in comments %}
+<div class="comment">
+  <span>{{comment}}</span>
+</div>
+{%  endfor %}
+
+{% if user.is_authenticated %}
+<div>
+  <form method='POST'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Save">
+  </form>
+</div>
+{%  endif %}
+
+{% endfor %}
 {% endblock %}
