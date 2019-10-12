@@ -11,21 +11,24 @@ from .forms import PostForm, CommentForm
 def post_list(request):
     posts = Post.objects.filter(
         published_date__lte=timezone.now()).order_by('published_date')
-    comments = Comment.objects.all()
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.author = request.user
-            comment.save()
-            return redirect('/')
-    else:
-      form = CommentForm()
-    return render(request, 'post_list.html', {'posts': posts, 'comments': comments, 'form' : form})
+    return render(request, 'post_list.html', {'posts': posts})
+
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'post_detail.html', {'post': post})
+    comments = Comment.objects.all()
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+          comment = form.save(commit=False)
+          comment.author = request.user
+          comment.post = post
+          comment.save()
+          return redirect('post_detail', pk=post.pk)
+    else:
+      form = CommentForm()
+    return render(request, 'post_detail.html', {'form': form, 'post': post, 'comments': comments})
 
 
 def post_new(request):
@@ -61,7 +64,8 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            return redirect('/')
+            user = form.save()
+        return redirect('/')
     else:
         form = UserCreationForm()
         return render(request, 'registration/register.html', {'form': form})
@@ -72,8 +76,3 @@ def profile(request):
     user = request.user
     mypost = Post.objects.filter(author=user).order_by('published_date')
     return render(request, 'profile.html', {'mypost': mypost})
-
-
-def post_comment(request):
-    form = CommentForm()
-    return render(request, 'post_list.html', {'form' : form})

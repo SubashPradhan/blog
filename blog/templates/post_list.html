@@ -10,23 +10,5 @@
     <p>{{ post.text|linebreaksbr }}</p>
 </div>
 
-<span>Comments:</span>
-{% for comment in comments %}
-<div class="comment">
-  <span>{{comment.author}}:</span>
-  <span>{{comment}}</span>
-</div>
-{%  endfor %}
-
-{% if user.is_authenticated %}
-<div>
-  <form method='POST'>
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Save">
-  </form>
-</div>
-{%  endif %}
-
 {% endfor %}
 {% endblock %}
