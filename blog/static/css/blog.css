@@ -2,8 +2,11 @@
   margin: 0 auto; 
   margin-top: 20px; 
 }
-
-h1 a, h3 a{
+.blog-container{
+  max-height: 200px;
+  display: inline-block;
+}
+h1 a, h3 a, .author{
   font-family: "Comic Sans MS", cursive, sans-serif	;
 }
 
@@ -13,9 +16,13 @@ h1{
   text-transform: uppercase;
 }
 
-.date{
-  font-size: 20px;
-  font-weight: 600;
+.blog{
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.author{
+  margin-top: 20px;
 }
 
 .login-button{
@@ -42,8 +49,4 @@ h1{
   color: green;
   text-transform: uppercase ;
   font-family: "Comic Sans MS", cursive, sans-serif	;
-}
-
-.fields{
-  widows: 800px;
 }

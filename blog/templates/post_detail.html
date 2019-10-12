@@ -16,11 +16,11 @@
   <h2>{{ post.title }}</h2>
   <p>{{ post.text|linebreaksbr }}</p>
 </div>
-<span>Comments:</span>
+<span><b>Comments:</b></span>
 {% for comment in comments %}
 {% if post.id == comment.post_id %}
 <div class="comment">
-  <span>{{comment.author}}:</span>
+  <span><b>{{comment.author}}:</b></span>
   <span>{{comment}}</span>
 </div>
 {% endif %}
